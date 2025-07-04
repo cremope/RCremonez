@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login de Teste</title>
+    <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #4b6cb7, #182848);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 30px 25px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      width: 320px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4b6cb7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #3a54a1;
+    }
+
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>RCremonez Digital - Login</h2>
+    <form id="loginForm">
+        <input type="text" id="usuario" placeholder="Email"  />
+        <input type="password" id="senha" placeholder="Senha"  />
+        <button id="btn-entrar" type="submit">Entrar</button>
+    </form>
+    <div id="mensagem" class="message"></div>
+</div>
+
+<script>
+  const loginForm = document.getElementById('loginForm');
+  const mensagem = document.getElementById('mensagem');
+
+  function validarEmail(email) {
+    // Regex simples para verificar formato de e-mail
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
+  loginForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const usuario = document.getElementById('usuario').value.trim();
+    const senha = document.getElementById('senha').value.trim();
+
+    if (!usuario || !senha) {
+      mensagem.textContent = 'Preencha todos os campos.';
+      mensagem.className = 'message error';
+      return;
+    }
+
+    if (!validarEmail(usuario)) {
+      mensagem.textContent = 'Usuário inválido';
+      mensagem.className = 'message error';
+      return;
+    }
+
+    const usuarioEhValido = usuario.toLowerCase() === 'admin@teste.com';
+    const senhaEhValida = senha === 'teste';
+
+    if (!usuarioEhValido && !senhaEhValida) {
+      mensagem.textContent = 'Usuário ou senha inválido.';
+      mensagem.className = 'message error';
+    } else if (!usuarioEhValido) {
+      mensagem.textContent = 'Usuário inválido';
+      mensagem.className = 'message error';
+    } else if (!senhaEhValida) {
+      mensagem.textContent = 'Usuário ou senha inválido.';
+      mensagem.className = 'message error';
+    } else {
+      mensagem.textContent = 'Login bem-sucedido!';
+      mensagem.className = 'message success';
+      setTimeout(() => {
+        window.location.href = "home.html";
+      }, 1000); // redireciona após 1 segundo
+    }
+  });
+</script>
+
+</body>
+</html>
